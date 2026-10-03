@@ -1,0 +1,28 @@
+{
+ "name": "Bharat Bhramanam",
+ "short_name": "Bhramanam",
+ "description": "Relief map of India with 208 places across all 36 states & UTs: best-season photos, permits, packing lists, traveller tips, live weather and a trip planner with reminders.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#101A22",
+ "theme_color": "#D9731A",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "icon.svg",
+   "sizes": "any",
+   "type": "image/svg+xml"
+  }
+ ]
+}

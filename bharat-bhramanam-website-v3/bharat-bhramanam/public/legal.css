@@ -1,0 +1,7 @@
+*{box-sizing:border-box}body{margin:0;background:#EEF2F4;color:#13202A;font:16px/1.6 "IBM Plex Sans","Segoe UI",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 60px}a{color:#9C4D06}h1{font:800 28px/1.2 "Bricolage Grotesque","Segoe UI",sans-serif;margin:8px 0 4px}
+h2{font:700 19px "Bricolage Grotesque","Segoe UI",sans-serif;margin:26px 0 6px}.meta{color:#566571;font-size:14px}.card{background:#fff;border:1px solid #D3DCE1;border-radius:14px;padding:18px 20px;margin-top:16px}
+.back{font-weight:600;text-decoration:none}.todo{background:#FBE8D6;border:1px solid #D9731A;border-radius:10px;padding:10px 12px;font-size:14px}
+table{border-collapse:collapse;width:100%}td{border-top:1px solid #D3DCE1;padding:8px 4px;vertical-align:top}td:first-child{width:38%;color:#566571}
+footer{margin-top:30px;font-size:14px;color:#566571}
+@media (prefers-color-scheme: dark){body{background:#0B1218;color:#E3ECF1}.card{background:#15212B;border-color:#253540}.meta,footer,td:first-child{color:#93A5B1}a{color:#F7BD84}td{border-color:#253540}.todo{background:#3A2715;border-color:#F19A45}}
