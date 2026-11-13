@@ -1,19 +1,28 @@
-// POST /api/verify-payment: checks Razorpay's signature, re-confirms the payment with Razorpay, then unlocks Premium.
-import { env, json, getUser, markPaid, hmacHex, safeEqualHex, confirmPayment, ORDER_RE, PAY_RE } from "../lib/shared.mjs";
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://checkout.razorpay.com; style-src 'self'; font-src 'self'; img-src 'self' blob: data: https://upload.wikimedia.org https://*.razorpay.com; connect-src 'self' https://*.supabase.co https://upload.wikimedia.org https://api.open-meteo.com https://customer-api.open-meteo.com https://api.razorpay.com https://lumberjack.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests; frame-ancestors 'none'
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), usb=(), serial=(), bluetooth=(), payment=(self "https://checkout.razorpay.com"), browsing-topics=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Cross-Origin-Resource-Policy: same-origin
+  X-Permitted-Cross-Domain-Policies: none
 
-export default async (req) => {
-  if(req.method !== "POST") return json(405, { error: "Method not allowed" });
-  const user = await getUser(req);
-  if(!user) return json(401, { error: "Please log in first" });
-  let b; try { b = await req.json(); } catch(e){ return json(400, { error: "Bad request" }); }
-  const orderId = b && b.razorpay_order_id, paymentId = b && b.razorpay_payment_id, sig = b && b.razorpay_signature;
-  if(!ORDER_RE.test(orderId || "") || !PAY_RE.test(paymentId || "") || !/^[0-9a-f]{64}$/i.test(sig || "")) return json(400, { error: "Bad request" });
-  if(!safeEqualHex(hmacHex(env("RAZORPAY_KEY_SECRET"), `${orderId}|${paymentId}`), sig)) return json(400, { error: "Signature check failed" });
-  try {
-    const c = await confirmPayment(orderId, paymentId, user.id);
-    if(!c.ok) return json(c.reason === "lookup" || c.reason === "capture" ? 502 : 400, { error: "Payment could not be confirmed" });
-    await markPaid(user.id, user.email, { order_id: orderId, payment_id: paymentId, amount: c.amount });
-    return json(200, { paid: true });
-  } catch(e){ return json(502, { error: "Please try again in a moment" }); }
-};
-export const config = { path: "/api/verify-payment" };
+/sw.js
+  Cache-Control: no-cache
+/config.js
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/app.js
+  Cache-Control: no-cache
+/app.css
+  Cache-Control: no-cache
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/img/*
+  Cache-Control: public, max-age=604800
+/contact.html
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet
+  Cache-Control: no-store

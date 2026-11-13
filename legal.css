@@ -1,18 +1,8 @@
-// Offline support: the app shell is cached so the map opens without internet.
-const CACHE = "bharat-bhramanam-c94bf9739e";
-const SHELL = ["./", "index.html", "fonts/bricolage-grotesque-latin-500-normal.woff2", "fonts/bricolage-grotesque-latin-700-normal.woff2", "fonts/bricolage-grotesque-latin-800-normal.woff2", "fonts/bricolage-grotesque-latin-ext-500-normal.woff2", "fonts/bricolage-grotesque-latin-ext-700-normal.woff2", "fonts/bricolage-grotesque-latin-ext-800-normal.woff2", "fonts/cormorant-garamond-latin-500-italic.woff2", "fonts/cormorant-garamond-latin-600-italic.woff2", "fonts/cormorant-garamond-latin-ext-500-italic.woff2", "fonts/cormorant-garamond-latin-ext-600-italic.woff2", "fonts/ibm-plex-mono-latin-400-normal.woff2", "fonts/ibm-plex-mono-latin-500-normal.woff2", "fonts/ibm-plex-mono-latin-ext-400-normal.woff2", "fonts/ibm-plex-mono-latin-ext-500-normal.woff2", "fonts/ibm-plex-sans-latin-400-normal.woff2", "fonts/ibm-plex-sans-latin-500-normal.woff2", "fonts/ibm-plex-sans-latin-600-normal.woff2", "fonts/ibm-plex-sans-latin-ext-400-normal.woff2", "fonts/ibm-plex-sans-latin-ext-500-normal.woff2", "fonts/ibm-plex-sans-latin-ext-600-normal.woff2", "styles.css", "app.js", "relief.webp", "vendor/d3.min.js", "vendor/topojson.min.js", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png"];
-self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
-self.addEventListener("activate", e => {
-  e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
-});
-self.addEventListener("fetch", e => {
-  const req = e.request;
-  if(req.method !== "GET") return;
-  const url = new URL(req.url);
-  if(url.origin === location.origin && !url.pathname.startsWith("/api/") && !url.pathname.endsWith("/config.js")){
-    e.respondWith(caches.match(req, {ignoreSearch:true}).then(hit => hit || fetch(req).then(res => {
-      if(res.ok){ const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
-      return res;
-    })).catch(() => caches.match("index.html")));
-  }
-});
+@font-face{font-family:'Anek Latin';font-style:normal;font-display:swap;font-weight:100 800;font-stretch:75% 125%;src:url(fonts/anek-latin.woff2) format('woff2')}
+*{box-sizing:border-box}body{margin:0;background:#F3F4F8;color:#171B34;font:16px/1.6 'Anek Latin','Segoe UI',system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:28px 16px 60px}a{color:#2B3A8C}h1{font-weight:800;font-stretch:80%;font-size:32px;line-height:1.15;margin:8px 0 4px}
+h2{font-weight:700;font-stretch:84%;font-size:20px;margin:26px 0 6px}.meta{color:#6A7090;font-size:14px}.card{background:#fff;border:1px solid #DADDE9;border-radius:14px;padding:18px 20px;margin-top:16px}
+.back{font-weight:600;text-decoration:none}.todo{background:#FFF0CC;border:1px solid #F2A100;border-radius:10px;padding:10px 12px;font-size:14px}
+table{border-collapse:collapse;width:100%}td{border-top:1px solid #DADDE9;padding:8px 4px;vertical-align:top}td:first-child{width:38%;color:#6A7090}
+footer{margin-top:30px;font-size:14px;color:#6A7090}
+@media (prefers-color-scheme: dark){body{background:#0B0E1C;color:#EEF0FA}.card{background:#141830;border-color:#272D52}.meta,footer,td:first-child{color:#8F95B7}a{color:#A9B6FF}td{border-color:#272D52}.todo{background:#3A2C0A;border-color:#FFB627}}
