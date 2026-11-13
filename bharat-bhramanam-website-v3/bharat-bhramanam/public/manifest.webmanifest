@@ -1,12 +1,18 @@
 {
  "name": "Bharat Bhramanam",
  "short_name": "Bhramanam",
- "description": "Relief map of India with 208 places across all 36 states & UTs: best-season photos, permits, packing lists, traveller tips, live weather and a trip planner with reminders.",
+ "description": "A relief map of India with 539 places across all 36 states and union territories: verified photographs, the best months to go, climate, distances from your city and a trip planner that works offline.",
+ "id": "./",
  "start_url": "./",
  "scope": "./",
  "display": "standalone",
- "background_color": "#101A22",
- "theme_color": "#D9731A",
+ "orientation": "any",
+ "background_color": "#171B34",
+ "theme_color": "#171B34",
+ "categories": [
+  "travel",
+  "navigation"
+ ],
  "icons": [
   {
    "src": "icon-192.png",
@@ -16,13 +22,40 @@
   {
    "src": "icon-512.png",
    "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "icon-maskable-512.png",
+   "sizes": "512x512",
    "type": "image/png",
-   "purpose": "any maskable"
+   "purpose": "maskable"
   },
   {
    "src": "icon.svg",
    "sizes": "any",
    "type": "image/svg+xml"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "Map",
+   "url": "./#map",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
+  },
+  {
+   "name": "Trips",
+   "url": "./#trips",
+   "icons": [
+    {
+     "src": "icon-192.png",
+     "sizes": "192x192"
+    }
+   ]
   }
  ]
 }
